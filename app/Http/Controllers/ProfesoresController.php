@@ -4,7 +4,7 @@
 use DB;
 use Request;
 
-use App\Models\User;
+use App\User;
 use App\Models\Profesor;
 use App\Models\Role;
 use App\Models\Year;
@@ -216,7 +216,7 @@ class ProfesoresController extends Controller {
 	 *************************************************************/
 	public function putGuardarValor()
 	{
-		if($this->user->roles[0]->name == 'Admin'){
+		if($this->user->is_superuser){
 			$valor 		= Request::input('valor');
 			$user_id 	= Request::input('user_id');
 			$persona_id 	= Request::input('persona_id');
@@ -288,7 +288,7 @@ class ProfesoresController extends Controller {
 
 	public function putUpdate($id)
 	{
-		if ($this->user->roles[0]->name == 'Admin') {
+		if ($this->user->is_superuser) {
 			$this->sanarInputUser();
 			$this->sanarInputProfesor();
 

@@ -6,7 +6,7 @@ use Request;
 use DB;
 use Excel;
 
-use App\Models\User;
+use App\User;
 use App\Models\Year;
 use App\Models\Matricula;
 use App\Models\Acudiente;

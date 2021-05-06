@@ -8,7 +8,7 @@ use File;
 use Image;
 use \stdClass;
 
-use App\Models\User;
+use App\User;
 use App\Models\ImageModel;
 use App\Models\Year;
 use App\Models\Debugging;

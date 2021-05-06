@@ -14,7 +14,7 @@ use DB;
 use Carbon\Carbon;
 
 
-use App\Models\User;
+use App\User;
 use App\Models\VtVotacion;
 use App\Models\Periodo;
 use App\Models\Year;
@@ -445,7 +445,8 @@ class LoginController extends Controller {
 
 			
 			$role = Role::where('name', 'Alumno')->get();
-			$usuario->attachRole($role[0]);
+			//$usuario->attachRole($role[0]);
+			$usuario->roles()->attach($role[0]['id']);
 
 			DB::update('UPDATE alumnos SET user_id=? WHERE id=?', [ $usuario->id, $alumno->id ]);
 

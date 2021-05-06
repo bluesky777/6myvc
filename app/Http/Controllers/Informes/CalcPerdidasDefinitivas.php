@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Informes;
 
 use DB;
-use App\Models\User;
+use App\User;
 
 class CalcPerdidasDefinitivas {
 	

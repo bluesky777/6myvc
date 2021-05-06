@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Request;
 use DB;
 
-use App\Models\User;
+use App\User;
 
 
 class FraseAsignatura extends Model {

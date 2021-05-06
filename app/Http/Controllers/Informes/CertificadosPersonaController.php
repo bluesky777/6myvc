@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use DB;
 
-use App\Models\User;
+use App\User;
 use App\Models\Year;
 use App\Models\Grupo;
 use App\Models\Periodo;

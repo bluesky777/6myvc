@@ -5,7 +5,7 @@
 use Request;
 use DB;
 
-use App\Models\User;
+use App\User;
 use App\Models\ChangeAsked;
 use App\Models\Alumno;
 

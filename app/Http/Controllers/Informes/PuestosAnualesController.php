@@ -8,7 +8,7 @@ use Request;
 use DB;
 use Hash;
 
-use App\Models\User;
+use App\User;
 use App\Models\Grupo;
 use App\Models\Periodo;
 use App\Models\Year;

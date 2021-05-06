@@ -4,7 +4,7 @@
 use Request;
 use DB;
 use Hash;
-use App\Models\User;
+use App\User;
 use \Log;
 
 use Carbon\Carbon;

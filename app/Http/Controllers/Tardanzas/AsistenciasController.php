@@ -11,7 +11,7 @@ use Hash;
 use DB;
 
 use App\Models\Debugging;
-use App\Models\User;
+use App\User;
 use App\Models\Ausencia;
 use App\Models\Grupo;
 use App\Models\Alumno;

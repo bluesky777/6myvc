@@ -4,7 +4,7 @@ use Request;
 use DB;
 use Carbon\Carbon;
 
-use App\Models\User;
+use App\User;
 use App\Models\Nota;
 use App\Models\Profesor;
 use App\Models\Unidad;
@@ -176,7 +176,7 @@ class NotasController extends Controller {
 
 		if ($user->alumnos_can_see_notas==false) {
 			$usuario = User::find($user->user_id);
-			if ($usuario->hasRole('alumno') || $usuario->tipo=='Acudiente') {
+			if ($usuario->tipo == 'Alumno' || $usuario->tipo=='Acudiente') {
 				return 'Sistema bloqueado. No puedes ver las notas';				
 			}
 		}
@@ -231,7 +231,7 @@ class NotasController extends Controller {
 		$user = User::fromToken();
 
 
-		if(($user->roles[0]->name == 'Admin' && $user->is_superuser) || $user->roles[0]->name == 'Profesor'){
+		if(($user->is_superuser && $user->is_superuser) || $user->tipo == 'Profesor'){
 			// Todo bien
 		}else{
 			return App::abort(400, 'No tienes permiso.');

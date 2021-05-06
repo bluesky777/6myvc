@@ -5,7 +5,7 @@
 use DB;
 use Carbon\Carbon;
 
-use App\Models\User;
+use App\User;
 
 
 

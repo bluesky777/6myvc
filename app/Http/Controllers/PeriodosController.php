@@ -4,7 +4,7 @@ use DB;
 use Request;
 use Carbon\Carbon;
 
-use App\Models\User;
+use App\User;
 use App\Models\Periodo;
 use App\Models\Unidad;
 use App\Models\Subunidad;

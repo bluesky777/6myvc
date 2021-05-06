@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use \stdClass;
 use DB;
-use App\Models\User;
+use App\User;
 
 class Periodo extends Model {
 	protected $fillable = [];

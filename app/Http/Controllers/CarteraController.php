@@ -3,7 +3,7 @@
 use Request;
 use DB;
 
-use App\Models\User;
+use App\User;
 use App\Models\Matricula;
 use Excel;
 

@@ -7,7 +7,7 @@ use DB;
 use Excel;
 use View;
 
-use App\Models\User;
+use App\User;
 use App\Models\Year;
 use App\Models\Periodo;
 use App\Models\Matricula;

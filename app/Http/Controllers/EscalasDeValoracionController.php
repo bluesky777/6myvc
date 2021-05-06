@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 
-use App\Models\User;
+use App\User;
 use App\Models\EscalaDeValoracion;
 
 

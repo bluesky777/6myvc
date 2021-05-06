@@ -4,7 +4,7 @@
 use Request;
 use DB;
 use Hash;
-use App\Models\User;
+use App\User;
 use \Log;
 
 use Carbon\Carbon;
@@ -92,7 +92,7 @@ class UsersController extends Controller {
 		$user 		= User::fromToken();
 		$now 		= Carbon::now('America/Bogota');
 		
-		if($user->roles[0]->name == 'Admin'){
+		if($user->is_superuser){
 			$username = 'usuario'.rand(100, 9999);
 			
 			$consulta = 'INSERT INTO users(username, password, sexo, is_superuser, tipo, is_active, periodo_id, created_by, created_at) 
@@ -131,7 +131,7 @@ class UsersController extends Controller {
 		$user 		= User::fromToken();
 		$now 		= Carbon::now('America/Bogota');
 		
-		if($user->roles[0]->name == 'Admin'){
+		if($user->is_superuser){
 			$username = 'psicologo'.rand(100, 9999);
 			
 			$consulta = 'INSERT INTO users(username, password, sexo, is_superuser, tipo, is_active, periodo_id, created_by, created_at) 
@@ -170,7 +170,7 @@ class UsersController extends Controller {
 		$user 		= User::fromToken();
 		$now 		= Carbon::now('America/Bogota');
 		
-		if($user->roles[0]->name == 'Admin'){
+		if($user->is_superuser){
 			$username = 'enfermero'.rand(100, 9999);
 			
 			$consulta = 'INSERT INTO users(username, password, sexo, is_superuser, tipo, is_active, periodo_id, created_by, created_at) 

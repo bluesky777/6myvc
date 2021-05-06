@@ -4,7 +4,7 @@
 use DB;
 use Request;
 
-use App\Models\User;
+use App\User;
 use App\Models\Year;
 use App\Models\Grado;
 use App\Models\Profesor;

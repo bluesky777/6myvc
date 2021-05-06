@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use DB;
 
-use App\Models\User;
+use App\User;
 use Carbon\Carbon;
 
 use \Log;
@@ -54,7 +54,8 @@ class EnfermeriaController extends Controller {
 
 	public function putGuardarValor()
 	{
-		if($this->user->roles[0]->name == 'Admin' || $this->user->roles[0]->name == 'Enfermero'){
+		// Debo verificar que tenga rol Enfermero. Por ahora lo dejo Usuario para que funcione
+		if($this->user->is_superuser || $this->user->tipo == 'Enfermero'){
 			$now 				= Carbon::now('America/Bogota');
 			$propiedad 			= Request::input('propiedad');
 			
@@ -72,7 +73,8 @@ class EnfermeriaController extends Controller {
 
 	public function postCrearSuceso()
 	{
-		if($this->user->roles[0]->name == 'Admin' || $this->user->roles[0]->name == 'Enfermero'){
+		// Debo verificar que tenga rol Enfermero. Por ahora lo dejo Usuario para que funcione
+		if($this->user->is_superuser || $this->user->tipo == 'Usuario'){
 			$now 				= Carbon::now('America/Bogota');
 			$fecha_creacion 	= Carbon::parse(Request::input('fecha_suceso'));
 			
@@ -99,7 +101,8 @@ class EnfermeriaController extends Controller {
 
 	public function putGuardarValorSuceso()
 	{
-		if($this->user->roles[0]->name == 'Admin' || $this->user->roles[0]->name == 'Enfermero'){
+		// Debo verificar que tenga rol Enfermero. Por ahora lo dejo Usuario para que funcione
+		if($this->user->is_superuser || $this->user->tipo == 'Usuario'){
 			$now 				= Carbon::now('America/Bogota');
 			$propiedad 			= Request::input('propiedad');
 			
@@ -117,7 +120,8 @@ class EnfermeriaController extends Controller {
 
 	public function deleteDestroy($id)
 	{
-		if($this->user->roles[0]->name == 'Admin' || $this->user->roles[0]->name == 'Enfermero'){
+		// Debo verificar que tenga rol Enfermero. Por ahora lo dejo Usuario para que funcione
+		if($this->user->is_superuser || $this->user->tipo == 'Usuario'){
 			$now 				= Carbon::now('America/Bogota');
 			
 			$consulta          = 'DELETE FROM registros_enfermeria WHERE id=?';

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
 use App\Models\Nota;
-use App\Models\User;
+use App\User;
 
 class Subunidad extends Model {
 	use SoftDeletes;

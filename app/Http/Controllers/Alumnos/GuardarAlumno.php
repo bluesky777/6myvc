@@ -7,7 +7,7 @@ use DB;
 use Hash;
 use Carbon\Carbon;
 
-use App\Models\User;
+use App\User;
 use App\Models\Year;
 use App\Models\Periodo;
 use \Log;

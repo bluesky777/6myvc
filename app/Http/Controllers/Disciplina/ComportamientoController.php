@@ -5,7 +5,7 @@ use DB;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Disciplina\DisciplinaController;
-use App\Models\User;
+use App\User;
 use App\Models\NotaComportamiento;
 use App\Models\Grupo;
 use App\Models\Alumno;

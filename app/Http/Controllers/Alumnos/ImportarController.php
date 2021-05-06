@@ -8,7 +8,7 @@ use Hash;
 use Carbon\Carbon;
 use \Log;
 
-use App\Models\User;
+use App\User;
 use App\Models\Role;
 use App\Models\Matricula;
 use App\Models\Year;

@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use DB;
 
-use App\Models\User;
+use App\User;
 use App\Models\NotaComportamiento;
 use App\Models\Grupo;
 use App\Models\Alumno;

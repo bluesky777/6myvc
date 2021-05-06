@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use DB;
 
-use App\Models\User;
+use App\User;
 use App\Models\Matricula;
 use App\Models\Acudiente;
 use Carbon\Carbon;
@@ -22,7 +22,7 @@ class PrematriculasController extends Controller {
 	public function __construct()
 	{
 		$this->user = User::fromToken();
-		if($this->user->roles[0]->name != 'Admin'){
+		if( ! $this->user->is_superuser){
 			return 'No tienes permiso';
 		}
 	}
@@ -31,7 +31,7 @@ class PrematriculasController extends Controller {
 
 	public function putLlevoFormulario()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$alumno_id 		= Request::input('alumno_id');
 			$llevo 			= Request::input('llevo_formulario');
 			$year 			= Request::input('year');

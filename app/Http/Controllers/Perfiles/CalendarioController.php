@@ -8,7 +8,7 @@ use File;
 use Image;
 use \stdClass;
 
-use App\Models\User;
+use App\User;
 use App\Models\ImageModel;
 use App\Models\Year;
 use App\Http\Controllers\Perfiles\Publicaciones;
@@ -34,7 +34,7 @@ class CalendarioController extends Controller {
 	public function putCrearEvento()
 	{
         $user   = User::fromToken();
-        if (($user->roles[0]->name == 'Profesor' ) || $user->roles[0]->name == 'Admin') {
+        if (($user->tipo == 'Profesor' ) || $user->is_superuser) {
             $now 	= Carbon::now('America/Bogota');
         
             $title              = Request::input('title');
@@ -73,7 +73,7 @@ class CalendarioController extends Controller {
 	public function putGuardarEvento()
 	{
         $user   = User::fromToken();
-        if (($user->roles[0]->name == 'Profesor' ) || $user->roles[0]->name == 'Admin') {
+        if (($user->tipo == 'Profesor' ) || $user->is_superuser) {
             $now 	= Carbon::now('America/Bogota');
             
             $title              = Request::input('title');
@@ -114,7 +114,7 @@ class CalendarioController extends Controller {
 	public function putEliminarEvento()
 	{
         $user   = User::fromToken();
-        if (($user->roles[0]->name == 'Profesor' ) || $user->roles[0]->name == 'Admin') {
+        if (($user->tipo == 'Profesor' ) || $user->is_superuser) {
             $now 	= Carbon::now('America/Bogota');
             
             $consulta = 'UPDATE calendario SET deleted_at=:deleted_at, deleted_by=:deleted_by WHERE id=:id';
@@ -135,7 +135,7 @@ class CalendarioController extends Controller {
         $user       = User::fromToken();
         $nombres    = $user->tipo == 'Usuario' ? $user->username : ($user->nombres . ' ' . $user->apellidos);
         
-        if (($user->roles[0]->name == 'Profesor' ) || $user->roles[0]->name == 'Admin') {
+        if (($user->tipo == 'Profesor' ) || $user->is_superuser) {
             $now 	= Carbon::now('America/Bogota');
             
             $consulta = 'DELETE FROM calendario WHERE cumple_alumno_id is not null or cumple_profe_id is not null';

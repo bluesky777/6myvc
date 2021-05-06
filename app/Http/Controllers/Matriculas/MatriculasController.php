@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use DB;
 
-use App\Models\User;
+use App\User;
 use App\Models\Matricula;
 use App\Models\Acudiente;
 use Carbon\Carbon;
@@ -26,7 +26,7 @@ class MatriculasController extends Controller {
 			if(Request::path() != 'matriculas/prematricular'){
 				return 'No tienes permiso';
 			}
-		}else if($this->user->roles[0]->name != 'Admin'){
+		}else if($this->user->is_superuser){
 			return 'No tienes permiso';
 		}
 	}
@@ -35,7 +35,7 @@ class MatriculasController extends Controller {
 
 	public function postMatricularuno()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$alumno_id 		= Request::input('alumno_id');
 			$grupo_id 		= Request::input('grupo_id');
 			$year_id 		= Request::input('year_id');
@@ -50,7 +50,7 @@ class MatriculasController extends Controller {
 
 	public function postMatricularEn()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$alumno_id 		= Request::input('alumno_id');
 			$grupo_id 		= Request::input('grupo_id');
 			$year_id 		= Request::input('year_id');
@@ -75,7 +75,7 @@ class MatriculasController extends Controller {
 
 	public function putReMatricularuno()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$matricula_id 		= Request::input('matricula_id');
 			
 			$matri 				= Matricula::findOrFail($matricula_id);
@@ -94,7 +94,7 @@ class MatriculasController extends Controller {
 
 	public function putSetPromovido()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$now 				= Carbon::now('America/Bogota');
 			$matricula_id 		= Request::input('matricula_id');
 			
@@ -115,7 +115,7 @@ class MatriculasController extends Controller {
 
 	public function putSetAsistente()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$alumno_id 		= Request::input('alumno_id');
 			$matricula_id 	= Request::input('matricula_id');
 			
@@ -133,7 +133,7 @@ class MatriculasController extends Controller {
 
 	public function putSetNewAsistente()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$alumno_id 	= Request::input('alumno_id');
 			$grupo_id 	= Request::input('grupo_id');
 
@@ -155,7 +155,7 @@ class MatriculasController extends Controller {
 
 	public function putCambiarFechaRetiro()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$matricula_id = Request::input('matricula_id');
 			$fecha_retiro = Request::input('fecha_retiro');
 			
@@ -173,7 +173,7 @@ class MatriculasController extends Controller {
 
 	public function putCambiarFechaMatricula()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$matricula_id 		= Request::input('matricula_id');
 			$fecha_matricula 	= Carbon::parse(Request::input('fecha_matricula'));
 			
@@ -407,7 +407,7 @@ class MatriculasController extends Controller {
 
 	public function putToggleNuevo()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$id 		= Request::input('matricula_id');
 			$is_nuevo 	= Request::input('is_nuevo');
 
@@ -425,7 +425,7 @@ class MatriculasController extends Controller {
 
 	public function putRetirar()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$id 	= Request::input('matricula_id');
 			$fecha 	= Carbon::parse(Request::input('fecha_retiro'));
 
@@ -443,12 +443,14 @@ class MatriculasController extends Controller {
 
 	public function putPrematricular()
 	{
+		/*
 		if ($this->user->tipo == 'Acudiente') {
 			$obj 		= new \stdClass;
 			$obj->name 	= 'Acudiente';
 			$this->user->roles = [ $obj ];
 		}
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin' || ($this->user->tipo == 'Acudiente' || $this->user->tipo == 'Alumno') ) {
+		 */
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser || ($this->user->tipo == 'Acudiente' || $this->user->tipo == 'Alumno') ) {
 			$alumno_id 		= Request::input('alumno_id');
 			$grupo_id 		= Request::input('grupo_id');
 			$estado 		= Request::input('estado', 'PREM');
@@ -512,7 +514,7 @@ class MatriculasController extends Controller {
 	// Inutil:
 	public function putQuitarPrematricula()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 
 			$matricula_id 	= Request::input('matricula_id');
 			//$now 			= Carbon::now('America/Bogota');
@@ -530,7 +532,7 @@ class MatriculasController extends Controller {
 	
 	public function putDesertar()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$id 	= Request::input('matricula_id');
 			$fecha 	= Carbon::parse(Request::input('fecha_retiro'));
 
@@ -549,7 +551,7 @@ class MatriculasController extends Controller {
 
 	public function deleteDestroy($id)
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$matri = Matricula::findOrFail($id);
 			$matri->estado 		= 'RETI';
 			$matri->deleted_by 	= $this->user->user_id;

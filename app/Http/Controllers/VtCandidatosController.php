@@ -4,7 +4,7 @@ use Request;
 use DB;
 
 
-use App\Models\User;
+use App\User;
 use App\Models\VtCandidato;
 use App\Models\VtVotacion;
 use App\Models\VtAspiracion;

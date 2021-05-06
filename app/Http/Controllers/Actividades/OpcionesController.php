@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Request;
 use DB;
 
-use App\Models\User;
+use App\User;
 use App\Models\WsActividad;
 use App\Models\WsPregunta;
 use App\Models\WsOpcion;

@@ -5,7 +5,7 @@ use DB;
 use Request;
 use Carbon\Carbon;
 
-use App\Models\User;
+use App\User;
 use App\Models\Year;
 use App\Models\Profesor;
 use App\Models\Asignatura;
@@ -25,9 +25,9 @@ class DefinitivasPeriodosController extends Controller {
 	{
 		$user 			= User::fromToken();
 
-		if ($user->roles[0]->name == 'Profesor') {
+		if ($user->tipo == 'Profesor') {
 			$profe_id = $user->persona_id;
-		} else if($user->roles[0]->name == 'Admin' && $user->is_superuser){
+		} else if($user->is_superuser && $user->is_superuser){
 			$profe_id = Request::input('profesor_id');
 		}
 		
@@ -51,7 +51,7 @@ class DefinitivasPeriodosController extends Controller {
 	{
 		$user 			= User::fromToken();
 
-		if ($user->roles[0]->name == 'Profesor' || ($user->roles[0]->name == 'User' && $user->is_superuser)) {
+		if ($user->tipo == 'Profesor' || $user->is_superuser) {
 			// Aquí un error por arreglar
 			$asignatura_id 	= Request::input('profesor_id');
 		}else{
@@ -83,7 +83,7 @@ class DefinitivasPeriodosController extends Controller {
 		$num_periodo 	= Request::input('num_periodo');
 		$now 			= Carbon::now('America/Bogota');
 
-		if ($user->roles[0]->name == 'Profesor' || $user->is_superuser) {
+		if ($user->tipo == 'Profesor' || $user->is_superuser) {
 			//$profesor_id 	= Request::input('profesor_id');
 		}else{
 			return abort(400, 'No tienes privilegios.');
@@ -309,7 +309,7 @@ class DefinitivasPeriodosController extends Controller {
 		$user 			= User::fromToken();
 		User::pueden_modificar_definitivas($user);
 		
-		if ($user->roles[0]->name == 'Profesor' || ($user->roles[0]->name == 'Admin' && $user->is_superuser)) {
+		if ($user->tipo == 'Profesor' || ($user->is_superuser && $user->is_superuser)) {
 			// No pasa nada
 		}else{
 			return App::abort(400, 'No tienes privilegios.');
@@ -334,7 +334,7 @@ class DefinitivasPeriodosController extends Controller {
 		$user 			= User::fromToken();
 		User::pueden_modificar_definitivas($user);
 		
-		if ($user->roles[0]->name == 'Profesor' || ($user->roles[0]->name == 'Admin' && $user->is_superuser)) {
+		if ($user->tipo == 'Profesor' || ($user->is_superuser && $user->is_superuser)) {
 			// No pasa nada
 		}else{
 			return App::abort(400, 'No tienes privilegios.');
@@ -354,7 +354,7 @@ class DefinitivasPeriodosController extends Controller {
 		$user 			= User::fromToken();
 		User::pueden_modificar_definitivas($user);
 		
-		if ($user->roles[0]->name == 'Profesor' || ($user->roles[0]->name == 'Admin' && $user->is_superuser)) {
+		if ($user->tipo == 'Profesor' || ($user->is_superuser && $user->is_superuser)) {
 			// No pasa nada
 		}else{
 			return App::abort(400, 'No tienes privilegios.');

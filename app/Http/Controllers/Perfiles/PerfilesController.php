@@ -6,7 +6,7 @@ use Request;
 use DB;
 use Hash;
 
-use App\Models\User;
+use App\User;
 use App\Models\Alumno;
 use App\Models\Profesor;
 use App\Models\Grupo;

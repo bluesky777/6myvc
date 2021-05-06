@@ -7,7 +7,7 @@ use DB;
 use Hash;
 use Carbon\Carbon;
 
-use App\Models\User;
+use App\User;
 use App\Models\Acudiente;
 use App\Models\Parentesco;
 use App\Models\Role;
@@ -376,7 +376,8 @@ where id in (
 			$usuario->save();
 
 			$role = Role::where('name', 'Acudiente')->get();
-			$usuario->attachRole($role[0]);
+			//$usuario->attachRole($role[0]);
+			$usuario->roles()->attach($role[0]['id']);
 
 			$acudiente->user_id = $usuario->id;
 			$acudiente->save();

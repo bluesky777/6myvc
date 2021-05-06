@@ -6,7 +6,7 @@ use Request;
 use DB;
 use Hash;
 
-use App\Models\User;
+use App\User;
 use App\Models\Grupo;
 use App\Models\Periodo;
 use App\Models\Year;
@@ -219,7 +219,7 @@ class AlumnosController extends Controller {
 
 	public function postStore()
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 
 			
 			$alumno = [];
@@ -283,9 +283,10 @@ class AlumnosController extends Controller {
 				$usuario->updated_by	=	$this->user->user_id;
 				$usuario->save();
 
-				
+
 				$role = Role::where('name', 'Alumno')->get();
-				$usuario->attachRole($role[0]);
+				//$usuario->attachRole($role[0]);
+				$usuario->roles()->attach($role[0]['id']);
 
 				$alumno->user_id = $usuario->id;
 				$alumno->save();
@@ -298,7 +299,7 @@ class AlumnosController extends Controller {
 				}elseif (Request::input('grupo_sig')['id']) {
 					$grupo_id = Request::input('grupo_sig')['id'];
 				}
-				
+
 				if ($grupo_id){
 					$matricula = new Matricula;
 					$matricula->alumno_id		=	$alumno->id;
@@ -659,7 +660,7 @@ class AlumnosController extends Controller {
 
 	public function putUpdate($id)
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			
 			$alumno = Alumno::findOrFail($id);
 
@@ -782,7 +783,7 @@ class AlumnosController extends Controller {
 			return response()->json([ 'autorizado'=> false, 'msg'=> 'No puedes cambiar a un alumno' ], 400);
 		}
 		
-		if ($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) {
+		if ($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) {
 			$consulta 	= 'SELECT a.id, a.user_id, g.id as grupo_id, g.titular_id, m.id as matricula_id FROM alumnos a
 							INNER JOIN matriculas m ON m.alumno_id=a.id
 							INNER JOIN grupos g ON g.id=m.grupo_id AND g.year_id=? AND g.titular_id=?
@@ -797,12 +798,13 @@ class AlumnosController extends Controller {
 				return response()->json([ 'autorizado'=> false, 'msg'=> 'No eres el titular' ], 400);
 			}
 			
-		} else if($this->user->roles[0]->name == 'Admin'){
+		} else if($this->user->is_superuser){
 			
 			$guardarAlumno = new GuardarAlumno();
 			return $guardarAlumno->valor($this->user, Request::input('propiedad'), Request::input('valor'), Request::input('user_id'), $year_id, Request::input('alumno_id'));
 			
-		} else if($this->user->roles[0]->name == 'Psicólogo' && (Request::input('propiedad') == 'nee' || Request::input('propiedad') == 'nee_descripcion')){
+		// Debo verificar que tenga rol Psicólogo. Por ahora lo dejo Usuario para que funcione
+		} else if($this->user->tipo == 'Psicólogo' && (Request::input('propiedad') == 'nee' || Request::input('propiedad') == 'nee_descripcion')){
 			
 			$guardarAlumno = new GuardarAlumno();
 			return $guardarAlumno->valor($this->user, Request::input('propiedad'), Request::input('valor'), Request::input('user_id'), $year_id, Request::input('alumno_id'));
@@ -871,7 +873,7 @@ class AlumnosController extends Controller {
 	{
 		$year_id = Request::input('year_id', $this->user->year_id);
 		
-		if ($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) {
+		if ($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) {
 			
 			$alumnos 	= Request::input('alumnos');
 			$cant 		= count($alumnos);
@@ -893,7 +895,7 @@ class AlumnosController extends Controller {
 			
 			}
 				
-		} else if($this->user->roles[0]->name == 'Admin'){
+		} else if($this->user->is_superuser){
 			
 			$alumnos 	= Request::input('alumnos');
 			$cant 		= count($alumnos);
@@ -916,7 +918,7 @@ class AlumnosController extends Controller {
 
 	public function deleteDestroy($id)
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$alumno = Alumno::find($id);
 			//Alumno::destroy($id);
 			//$alumno->restore();
@@ -937,7 +939,7 @@ class AlumnosController extends Controller {
 
 	public function deleteForcedelete($id)
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$alumno = Alumno::onlyTrashed()->findOrFail($id);
 			
 			if ($alumno) {
@@ -953,7 +955,7 @@ class AlumnosController extends Controller {
 
 	public function putRestore($id)
 	{
-		if (($this->user->roles[0]->name == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->roles[0]->name == 'Admin') {
+		if (($this->user->tipo == 'Profesor' && $this->user->profes_can_edit_alumnos) || $this->user->is_superuser) {
 			$alumno = Alumno::onlyTrashed()->findOrFail($id);
 
 			if ($alumno) {

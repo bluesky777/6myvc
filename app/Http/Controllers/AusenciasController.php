@@ -5,7 +5,7 @@ use DB;
 use Request;
 use DateTime;
 
-use App\Models\User;
+use App\User;
 use App\Models\Alumno;
 use App\Models\Grupo;
 use App\Models\Ausencia;

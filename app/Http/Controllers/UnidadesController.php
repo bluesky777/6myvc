@@ -4,7 +4,7 @@ use Request;
 use DB;
 
 
-use App\Models\User;
+use App\User;
 use App\Models\Unidad;
 use App\Models\Subunidad;
 use App\Models\Profesor;
