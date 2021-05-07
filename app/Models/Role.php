@@ -1,16 +1,25 @@
 <?php namespace App\Models;
 
-use Zizaco\Entrust\EntrustRole;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
 
-class Role extends EntrustRole
+class Role extends Model
 {
 
 	use SoftDeletes;
 	protected $softDelete = true;
+
+	/**
+     * The users that belong to the role.
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
 
 	// Devolveremos los permisos del rol, detallado o solo el texto nombre.
 	public function permissions($detailed=false)

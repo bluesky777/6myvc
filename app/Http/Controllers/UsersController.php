@@ -8,6 +8,9 @@ use App\User;
 use \Log;
 
 use Carbon\Carbon;
+use App\Exports\AlumnosExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 
 class UsersController extends Controller {
@@ -25,6 +28,11 @@ class UsersController extends Controller {
 	{
 		$votacion = VtVotacion::where('actual', true)->first();
 		return $votacion;
+	}
+
+	public function getExport()
+	{
+		return Excel::download(new AlumnosExport, 'alumnos.xlsx');
 	}
 
 

@@ -4,7 +4,8 @@ use App\Http\Controllers\Controller;
 
 use Request;
 use DB;
-use Excel;
+use App\Exports\AlumnosExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\User;
 use App\Models\Year;
@@ -109,6 +110,7 @@ class SimatController extends Controller {
 
 	public function getAlumnosExportar()
 	{
+        return Excel::download(new AlumnosExport, 'alumnos.xlsx');
         $user = User::fromToken();
         
         $host = parse_url(request()->headers->get('referer'), PHP_URL_HOST);

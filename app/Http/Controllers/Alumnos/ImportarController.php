@@ -29,7 +29,7 @@ class ImportarController extends Controller {
 		if(Request::hasFile('file')){
 			$path = Request::file('file')->getRealPath();
 			
-			$rr = Excel::load($path, function($reader) use ($year){
+			$rr = Excel::import($path, function($reader) use ($year){
 				
 				$now 		= Carbon::now('America/Bogota');
 				$results 	= $reader->all();
@@ -157,7 +157,7 @@ class ImportarController extends Controller {
 		if(Request::hasFile('file')){
 			$path = Request::file('file')->getRealPath();
 
-			$rr = Excel::load($path, function($reader){
+			$rr = Excel::import($path, function($reader){
 				
 				$now 		= Carbon::now('America/Bogota');
 				$results 	= $reader->all();
@@ -207,7 +207,7 @@ class ImportarController extends Controller {
 	public function getIndex()
 	{
 
-		$rr = Excel::load('app/Http/Controllers/Alumnos/archivos/alumnos.xls', function($reader) {
+		$rr = Excel::import('app/Http/Controllers/Alumnos/archivos/alumnos.xls', function($reader) {
 
 			$results 	= $reader->all();
 			$now 		= Carbon::parse(Request::input('fecha_matricula'));
@@ -279,7 +279,7 @@ class ImportarController extends Controller {
             $extension = 'xlsx';
 		}
 		
-		$rr = Excel::load('app/Http/Controllers/Alumnos/archivos/alumnos-modificar-'.$year.'.'.$extension, function($reader) use ($year) {
+		$rr = Excel::import('app/Http/Controllers/Alumnos/archivos/alumnos-modificar-'.$year.'.'.$extension, function($reader) use ($year) {
 
 			$now 		= Carbon::now('America/Bogota');
 			$results 	= $reader->all();
