@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Carbon\Carbon;
 use App\Models\Grupo;
+use App\User;
 use App\Models\Periodo;
 use App\Models\Debugging;
 use DB;
