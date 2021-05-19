@@ -4,7 +4,7 @@
 use DB;
 use Request;
 
-use App\User;
+use App\Models\User;
 use App\Models\Profesor;
 use App\Models\Role;
 use App\Models\Year;
@@ -146,7 +146,7 @@ class ProfesoresController extends Controller {
 
 
 		$profesor->user_id = $usuario->id;
-
+		
 		$role = Role::where('name', 'Profesor')->get();
 		$usuario->roles()->attach($role[0]['id']);
 
