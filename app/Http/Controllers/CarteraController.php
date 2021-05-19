@@ -6,6 +6,7 @@ use DB;
 use App\User;
 use App\Models\Matricula;
 use Excel;
+use App\Exports\DeudoresExport;
 
 
 class CarteraController extends Controller {
@@ -50,7 +51,7 @@ class CarteraController extends Controller {
 
 	public function getExportarSoloDeudores()
 	{
-		
+		return Excel::download(new DeudoresExport, 'Deudores.xlsx');
 		
         $host = parse_url(request()->headers->get('referer'), PHP_URL_HOST);
         if ($host == '0.0.0.0' || $host == 'localhost' || $host == '127.0.0.1') {
