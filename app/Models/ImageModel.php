@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 use File;
 use \Log;
+use App\User;
 
 
 class ImageModel extends Model {
