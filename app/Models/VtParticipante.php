@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 use DB;
+use App\User;
 
 
 class VtParticipante extends Model {
